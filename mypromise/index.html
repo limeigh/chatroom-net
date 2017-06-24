@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pormise</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  // 通过 Promise 来解决回调嵌套太多的问题
+  var p = new Promise(function (resolve, reject) {
+    // reslove 和 reject 是两个方法
+    // 这里有个约定:
+      // 我们把异步操作的代码写在这个函数里
+      // 如果异步代码要做的事情成功了就调用 resolve方法,可以传参数
+      // 如果异步代码要做的事情失败了就调用 reject方法
+      console.log(123)
+      setTimeout(function () {
+        // resolve('你好吗!')// 当resolve执行时，就会调用 then方法里的回调函数!
+        reject('哈哈')
+      }, 3000)
+  })
+  // 本身异步操作成功，一般是会有个成功的回调函数的
+  // 此处 then方法可以指定一个函数, 当then方法调用时，并且resolve执行字,那么
+  // then中的函数就会执行
+  p.then(function (data) {
+    console.log(data)
+    console.log('then..中的回调执行了')
+  })
+  p.catch(function () {
+    console.log(arguments)
+  })
+</script>
+<script>
+  // function myAjax (url, type, callback) {
+  //   var requret = new XMLHttpRequest()
+  //   request.open(type, url)
+  //   request.onreadystatechange = function () {
+  //     if (request.readyState === 4 && request.status === 200) {
+  //       callback(request.response.Text)
+  //     }
+  //   }
+  //   request.send()
+  // }
+
+  // // 回调地狱, 就是回调函数嵌套层数太多了!
+  // //  使用 myAjax方法
+  // myAjax('/xx', 'get', function (data) {
+  //   // 成功的回调函数!
+  //   // 我希望这次请求成功之后再发一次请求
+  //   myAjax('/xx', 'get', function (data) {
+  //       // 我希望成功之后，再发一次
+  //       myAjax('/xx', 'get', function (data) {
+  //         // 我希望成功之后，再发一次
+  //         myAjax('/xx', 'get', function (data) {
+  //           // 我希望成功之后，再发一次
+  //           myAjax('/xx', 'get', function (data) {
+  //             //
+  //             //
+
+  //             //
+
+  //             //
+  //           })
+  //         })
+  //     })
+  //   })
+  // })
+</script>
